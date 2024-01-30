@@ -4,7 +4,7 @@ import { useOrganizationList } from "@clerk/nextjs";
 import { useParams } from "next/navigation";
 import { useEffect } from "react";
 
-// Znsures that the URL displayed corresponds to the organization
+// Ensures that the URL displayed corresponds to the organization
 
 export const OrgControl = () => {
   const params = useParams();
