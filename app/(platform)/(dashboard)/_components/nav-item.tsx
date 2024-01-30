@@ -1,6 +1,8 @@
 "use client";
+
 import { Activity, CreditCard, Layout, Settings } from "lucide-react";
 import Image from "next/image";
+import { usePathname, useRouter } from "next/navigation";
 
 import {
   AccordionContent,
@@ -10,7 +12,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
-import { usePathname, useRouter } from "next/navigation";
 
 export type Organization = {
   id: string;
@@ -19,12 +20,12 @@ export type Organization = {
   name: string;
 };
 
-type NavItemProps = {
+interface NavItemProps {
   isExpanded: boolean;
   isActive: boolean;
   organization: Organization;
   onExpand: (id: string) => void;
-};
+}
 
 export const NavItem = ({
   isExpanded,
@@ -34,6 +35,7 @@ export const NavItem = ({
 }: NavItemProps) => {
   const router = useRouter();
   const pathname = usePathname();
+
   const routes = [
     {
       label: "Boards",
@@ -56,9 +58,11 @@ export const NavItem = ({
       href: `/organization/${organization.id}/billing`,
     },
   ];
+
   const onClick = (href: string) => {
     router.push(href);
   };
+
   return (
     <AccordionItem value={organization.id} className="border-none">
       <AccordionTrigger
@@ -71,10 +75,10 @@ export const NavItem = ({
         <div className="flex items-center gap-x-2">
           <div className="w-7 h-7 relative">
             <Image
+              sizes="10"
               fill
               src={organization.imageUrl}
               alt="Organization"
-              sizes="10"
               className="rounded-sm object-cover"
             />
           </div>

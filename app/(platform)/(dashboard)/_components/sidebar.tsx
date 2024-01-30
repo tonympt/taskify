@@ -8,36 +8,47 @@ import { useLocalStorage } from "usehooks-ts";
 import { Accordion } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useMemo } from "react";
+
+import { useEffect, useState } from "react";
 import { NavItem, Organization } from "./nav-item";
 
-type SidebarProps = {
+interface SidebarProps {
   storageKey?: string;
-};
+}
 
 export const Sidebar = ({ storageKey = "t-sidebar-state" }: SidebarProps) => {
+  const [isMounted, setIsMounted] = useState(false);
   const [expanded, setExpanded] = useLocalStorage<Record<string, any>>(
     storageKey,
     {}
   );
 
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   const { organization: activeOrganization, isLoaded: isLoadedOrg } =
     useOrganization();
-
   const { userMemberships, isLoaded: isLoadedOrgList } = useOrganizationList({
     userMemberships: {
       infinite: true,
     },
   });
 
-  const defaultAccordionValue = useMemo(() => {
-    return Object.keys(expanded).reduce((acc, key) => {
+  const defaultAccordionValue: string[] = Object.keys(expanded).reduce(
+    (acc: string[], key: string) => {
       if (expanded[key]) {
-        acc.push(key as never);
+        acc.push(key);
       }
+
       return acc;
-    }, []);
-  }, [expanded]);
+    },
+    []
+  );
+
+  if (!isMounted) {
+    return null;
+  }
 
   const onExpand = (id: string) => {
     setExpanded((curr) => ({
@@ -49,7 +60,15 @@ export const Sidebar = ({ storageKey = "t-sidebar-state" }: SidebarProps) => {
   if (!isLoadedOrg || !isLoadedOrgList || userMemberships.isLoading) {
     return (
       <>
-        <Skeleton />
+        <div className="flex items-center justify-between mb-2">
+          <Skeleton className="h-10 w-[50%]" />
+          <Skeleton className="h-10 w-10" />
+        </div>
+        <div className="space-y-2">
+          <NavItem.Skeleton />
+          <NavItem.Skeleton />
+          <NavItem.Skeleton />
+        </div>
       </>
     );
   }
