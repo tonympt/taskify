@@ -2,7 +2,7 @@
 
 import { createBoard } from "@/actions/create-board";
 import { FormInput } from "@/components/form/form-input";
-import { Button } from "@/components/ui/button";
+import { FormSubmit } from "@/components/form/form-submit";
 import { useAction } from "@/hooks/use-action";
 
 export const Form = () => {
@@ -27,7 +27,7 @@ export const Form = () => {
         <div className="flex flex-col space-y-2">
           <FormInput label="Board Title" id="title" errors={fieldErrors} />
         </div>
-        <Button type="submit">Submit</Button>
+        <FormSubmit>Save</FormSubmit>
       </form>
     </div>
   );
