@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/popover";
 import { useAction } from "@/hooks/use-action";
 import { X } from "lucide-react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { ElementRef, useRef } from "react";
 import { toast } from "sonner";
 import { Button } from "../ui/button";
