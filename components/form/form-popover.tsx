@@ -9,6 +9,8 @@ import {
 } from "@/components/ui/popover";
 import { useAction } from "@/hooks/use-action";
 import { X } from "lucide-react";
+import { useRouter } from "next/router";
+import { ElementRef, useRef } from "react";
 import { toast } from "sonner";
 import { Button } from "../ui/button";
 import { FormInput } from "./form-input";
@@ -28,10 +30,13 @@ const FormPopover = ({
   align,
   sideOffset = 0,
 }: FormPopoverProps) => {
+  const closeRef = useRef<ElementRef<"button">>(null);
+  const router = useRouter();
   const { execute, fieldErrors } = useAction(createBoard, {
     onSuccess: (data) => {
-      toast.success("Event has been created");
-      console.log(data);
+      toast.success("Board has been created");
+      closeRef.current?.click();
+      router.push(`/board/${data.id}`);
     },
     onError: (error) => {
       toast.error(error);
@@ -40,7 +45,8 @@ const FormPopover = ({
   });
   const onSubmit = (formData: FormData) => {
     const title = formData.get("title") as string;
-    execute({ title });
+    const image = formData.get("image") as string;
+    execute({ title, image });
   };
   return (
     <Popover>
@@ -54,7 +60,7 @@ const FormPopover = ({
         <div className="text-sm font-medium text-center text-neutral-600 pb-4">
           Create board
         </div>
-        <PopoverClose asChild>
+        <PopoverClose ref={closeRef} asChild>
           <Button
             className="h-auto w-auto p-2 absolute top-2 right-2 text-neutral-600"
             variant="ghost"
