@@ -1,7 +1,7 @@
 "use client";
 
 import { ListWithCards } from "@/types";
-import ListHeader from "./list-header";
+import { ListHeader } from "./list-header";
 
 type ListItemProps = {
   data: ListWithCards;
