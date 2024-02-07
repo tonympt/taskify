@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import ListForm from "./list-form";
 import ListItem from "./list-item";
 
+import { updateCardOrder } from "@/actions/update-card-order";
 import { updateListOrder } from "@/actions/update-list-order";
 import { useAction } from "@/hooks/use-action";
 import { DragDropContext, Droppable } from "@hello-pangea/dnd";
@@ -21,6 +22,15 @@ const ListContainer = ({ data, boardId }: ListContainerProps) => {
   const { execute: executeUpdateListOrder } = useAction(updateListOrder, {
     onSuccess: () => {
       toast.success("List reordered");
+    },
+    onError: (error) => {
+      toast.error(error);
+    },
+  });
+
+  const { execute: executeUpdateCardOrder } = useAction(updateCardOrder, {
+    onSuccess: () => {
+      toast.success("Card reordered");
     },
     onError: (error) => {
       toast.error(error);
@@ -104,10 +114,10 @@ const ListContainer = ({ data, boardId }: ListContainerProps) => {
         sourceList.cards = reorderedCards;
 
         setOrderedData(newOrderedData);
-        // executeUpdateCardOrder({
-        //   boardId: boardId,
-        //   items: reorderedCards,
-        // });
+        executeUpdateCardOrder({
+          boardId: boardId,
+          items: reorderedCards,
+        });
         // User moves the card to another list
       } else {
         // Remove card from the source list
@@ -129,10 +139,10 @@ const ListContainer = ({ data, boardId }: ListContainerProps) => {
         });
 
         setOrderedData(newOrderedData);
-        // executeUpdateCardOrder({
-        //   boardId: boardId,
-        //   items: destList.cards,
-        // });
+        executeUpdateCardOrder({
+          boardId: boardId,
+          items: destList.cards,
+        });
       }
     }
   };
