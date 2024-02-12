@@ -55,7 +55,7 @@ For this project, my goal was to recreate a clone of the [Trello](https://trello
 
   - TypeScript is an indispensable, strongly typed programming language that builds on JavaScript, enhancing it with type annotations and advanced features
 
-* [Prisma](https://www.prisma.io/) <img src="https://i.pinimg.com/originals/39/b2/e4/39b2e4ad77c23a2c11e5950a7dfa2aec.png" width="20"> See [`prisma shema`](./prisma/schema.prisma)
+* [Prisma](https://www.prisma.io/) <img src="https://i.pinimg.com/originals/39/b2/e4/39b2e4ad77c23a2c11e5950a7dfa2aec.png" width="20"> See [`prisma schema`](./prisma/schema.prisma)
 
   - an ORM working with several SGBD, MySQL in this application
 
@@ -69,7 +69,7 @@ For this project, my goal was to recreate a clone of the [Trello](https://trello
 
 * [Zod](https://zod.dev/) <img src="https://codesandbox.io/api/v1/sandboxes/ojufdb/screenshot.png" width="20"> - See [`zod-schema`](./actions/create-card/schema.ts)
 
-* [Clerk](https://clerk.com/) <img src="https://cdn-1.webcatalog.io/catalog/clerk/clerk-icon-filled-256.png?v=1676365495152" width="20"> - See [`middleware.ts`](./actions/create-card/schema.ts)
+* [Clerk](https://clerk.com/) <img src="https://cdn-1.webcatalog.io/catalog/clerk/clerk-icon-filled-256.png?v=1676365495152" width="20"> - See [`middleware.ts`](./middleware.ts)
 
   - tools to manage authentication
 
